@@ -180,11 +180,11 @@ function createAvatarElement(avatar) {
   }
   
   // Determine the image source
-  const imageSrc = avatar.preview_image || `/static/images/avatars/${avatar.id}_preview.svg`;
+  const imageSrc = avatar.preview_image?.replace(/^\/static/, '') || `/images/avatars/${avatar.id}_preview.svg`;
   
   element.innerHTML = `
     <div class="avatar-image">
-      <img src="${imageSrc}" alt="${avatar.name}" class="img-fluid" onerror="this.onerror=null; this.src='/static/images/avatar-placeholder.svg';">
+      <img src="${imageSrc}" alt="${avatar.name}" class="img-fluid" onerror="this.onerror=null; this.src='/images/avatar-placeholder.svg';">
     </div>
     <div class="avatar-info">
       <h6 class="avatar-name">${avatar.name}</h6>
@@ -385,10 +385,10 @@ function updateSelectedAvatarInfo(avatar) {
         <h5 class="card-title">Selected Avatar</h5>
         <div class="d-flex align-items-center">
           <div class="me-3" style="width: 60px; height: 60px; overflow: hidden; border-radius: 8px;">
-            <img src="${avatar.preview_image || `/static/images/avatars/${avatar.id}_preview.svg`}" 
+            <img src="${avatar.preview_image?.replace(/^\/static/, '') || `/images/avatars/${avatar.id}_preview.svg`}" 
                  alt="${avatar.name}" 
                  class="img-fluid"
-                 onerror="this.onerror=null; this.src='/static/images/avatar-placeholder.svg';">
+                 onerror="this.onerror=null; this.src='/images/avatar-placeholder.svg';">
           </div>
           <div>
             <h6 class="mb-1">${avatar.name}</h6>
