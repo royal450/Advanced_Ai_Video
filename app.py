@@ -1,11 +1,8 @@
 import os
 import logging
-# Configure eventlet for WebSocket support
-import eventlet
-eventlet.monkey_patch()
+import json
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
-import json
 from utils.tts import generate_speech
 from utils.lip_sync import generate_lip_sync
 from utils.video_processor import process_video
@@ -18,8 +15,8 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev_secret_key")
 
-# Initialize SocketIO
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+# Initialize SocketIO with better compatibility for gunicorn
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Routes
 @app.route('/')

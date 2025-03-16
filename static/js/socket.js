@@ -16,8 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initializeSocket() {
   try {
-    // Connect to the Socket.IO server (auto-connects to the host that served the page)
-    socket = io();
+    // Connect to the Socket.IO server with explicit configuration for better gunicorn compatibility
+    socket = io({
+      transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
+    });
     
     // Set up event listeners for socket events
     setupSocketListeners();
