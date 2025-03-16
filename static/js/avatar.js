@@ -385,7 +385,7 @@ function updateSelectedAvatarInfo(avatar) {
         <h5 class="card-title">Selected Avatar</h5>
         <div class="d-flex align-items-center">
           <div class="me-3" style="width: 60px; height: 60px; overflow: hidden; border-radius: 8px;">
-            <img src="${avatar.preview || `/static/images/avatars/${avatar.id}_preview.svg`}" 
+            <img src="${avatar.preview_image || `/static/images/avatars/${avatar.id}_preview.svg`}" 
                  alt="${avatar.name}" 
                  class="img-fluid"
                  onerror="this.onerror=null; this.src='/static/images/avatar-placeholder.svg';">

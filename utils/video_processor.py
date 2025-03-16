@@ -20,15 +20,23 @@ def process_video(lip_sync_path, avatar_id):
     Returns:
     - Path to the final processed video
     """
+    # Generate unique identifier for this job
+    job_id = str(uuid.uuid4())
+    output_path = f"static/videos/final/avatar_video_{job_id}.mp4"
+    
     try:
         # Create output directory if it doesn't exist
         os.makedirs("static/videos/final", exist_ok=True)
         
-        # Generate unique identifier for this job
-        job_id = str(uuid.uuid4())
-        output_path = f"static/videos/final/avatar_video_{job_id}.mp4"
-        
         logger.debug(f"Processing video for avatar {avatar_id}")
+        
+        # Check if input file exists
+        if not os.path.exists(lip_sync_path):
+            logger.error(f"Input lip sync video not found: {lip_sync_path}")
+            
+            # Create an error video instead
+            create_error_video(output_path, avatar_id, f"Input video not found: {lip_sync_path}")
+            return output_path
         
         # In a real implementation, this would add expressions, gestures, etc.
         # For this implementation, we'll simulate the process
@@ -42,7 +50,14 @@ def process_video(lip_sync_path, avatar_id):
     
     except Exception as e:
         logger.error(f"Error in video processing: {e}")
-        raise
+        
+        try:
+            # Create an error video instead
+            create_error_video(output_path, avatar_id, f"Error: {str(e)}")
+            return output_path
+        except Exception as inner_e:
+            logger.error(f"Failed to create error video: {inner_e}")
+            raise e
 
 def add_expressions_and_gestures(input_video_path, output_path, avatar_id):
     """
@@ -268,4 +283,132 @@ def create_silent_audio(audio_path):
     
     except Exception as e:
         logger.error(f"Error creating silent audio: {e}")
+        raise
+
+def create_error_video(output_path, avatar_id, error_message):
+    """
+    Create a video with an error message when processing fails
+    
+    Parameters:
+    - output_path: Path where the output video should be saved
+    - avatar_id: ID of the avatar that was being processed
+    - error_message: The error message to display
+    """
+    logger.debug(f"Creating error video for avatar {avatar_id} at {output_path}")
+    
+    try:
+        # Create a temporary directory for processing
+        temp_dir = tempfile.mkdtemp(dir="temp")
+        frames_dir = os.path.join(temp_dir, "frames")
+        os.makedirs(frames_dir, exist_ok=True)
+        
+        # Create 90 frames (3 seconds at 30fps)
+        for i in range(90):
+            # Create a frame with error message
+            frame = np.ones((480, 640, 3), dtype=np.uint8) * 255  # White background
+            
+            # Draw a red border
+            cv2.rectangle(frame, (20, 20), (620, 460), (0, 0, 200), 10)
+            
+            # Add avatar ID
+            cv2.putText(
+                frame, 
+                f"Avatar: {avatar_id}", 
+                (50, 80), 
+                cv2.FONT_HERSHEY_SIMPLEX, 
+                0.8, 
+                (0, 0, 0), 
+                2
+            )
+            
+            # Add error title
+            cv2.putText(
+                frame, 
+                "Error Generating Video", 
+                (50, 150), 
+                cv2.FONT_HERSHEY_SIMPLEX, 
+                1.2, 
+                (200, 0, 0), 
+                2
+            )
+            
+            # Add error message (may need to break into multiple lines)
+            error_lines = []
+            words = error_message.split()
+            current_line = ""
+            
+            for word in words:
+                test_line = current_line + " " + word if current_line else word
+                if len(test_line) < 40:  # Max chars per line
+                    current_line = test_line
+                else:
+                    error_lines.append(current_line)
+                    current_line = word
+            
+            if current_line:
+                error_lines.append(current_line)
+            
+            # Draw each line of the error message
+            y_position = 200
+            for line in error_lines:
+                cv2.putText(
+                    frame, 
+                    line, 
+                    (50, y_position), 
+                    cv2.FONT_HERSHEY_SIMPLEX, 
+                    0.8, 
+                    (0, 0, 0), 
+                    1
+                )
+                y_position += 40
+            
+            # Add a pulsing "error" indicator
+            pulse_size = int(30 + 10 * np.sin(i * 0.2))
+            cv2.circle(frame, (320, 350), pulse_size, (0, 0, 200), -1)
+            
+            # Save the frame
+            frame_path = os.path.join(frames_dir, f"frame_{i:04d}.jpg")
+            cv2.imwrite(frame_path, frame)
+        
+        # Create a silent audio track
+        audio_path = os.path.join(temp_dir, "silent.aac")
+        create_silent_audio(audio_path)
+        
+        # Combine frames and audio into a video
+        ffmpeg_cmd = [
+            "ffmpeg",
+            "-y",
+            "-i", os.path.join(frames_dir, "frame_%04d.jpg"),
+            "-i", audio_path,
+            "-c:v", "libx264",
+            "-preset", "fast",
+            "-crf", "22",
+            "-c:a", "aac",
+            "-pix_fmt", "yuv420p",
+            "-shortest",
+            output_path
+        ]
+        
+        try:
+            # Try to run ffmpeg
+            subprocess.run(ffmpeg_cmd, check=True, capture_output=True)
+            logger.debug("Error video created successfully")
+        except subprocess.CalledProcessError as e:
+            logger.error(f"FFMPEG error while creating error video: {e.stderr.decode()}")
+            
+            # Create a text file with the error if video creation fails
+            with open(output_path.replace(".mp4", ".txt"), "w") as f:
+                f.write(f"Error creating video: {e}\n\nOriginal error: {error_message}")
+        
+        # Clean up temporary directory
+        shutil.rmtree(temp_dir)
+    
+    except Exception as e:
+        logger.error(f"Error in create_error_video: {e}")
+        # Create a simple text file as a last resort
+        try:
+            with open(output_path.replace(".mp4", ".txt"), "w") as f:
+                f.write(f"Critical error creating video: {e}\n\nOriginal error: {error_message}")
+        except:
+            pass
         raise

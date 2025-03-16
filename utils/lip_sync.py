@@ -32,6 +32,24 @@ def generate_lip_sync(audio_path, avatar_id):
         # Get avatar frame path (this would be the image of the avatar to animate)
         avatar_frame_path = f"static/avatars/{avatar_id}.jpg"
         
+        # Verify that the avatar frame exists
+        logger.debug(f"Checking for avatar frame at {avatar_frame_path}")
+        if not os.path.exists(avatar_frame_path):
+            logger.warning(f"Avatar frame not found at {avatar_frame_path}")
+            
+            # Try alternative paths
+            alternative_paths = [
+                f"static/images/avatars/{avatar_id}_preview.svg",
+                f"static/images/avatars/{avatar_id.replace('avatar', '')}_preview.svg" # Try without 'avatar' prefix
+            ]
+            
+            for alt_path in alternative_paths:
+                logger.debug(f"Trying alternative path: {alt_path}")
+                if os.path.exists(alt_path):
+                    logger.info(f"Found avatar at alternative path: {alt_path}")
+                    avatar_frame_path = alt_path
+                    break
+        
         logger.debug(f"Generating lip sync for avatar {avatar_id} with audio {audio_path}")
         
         # In a real implementation, this would call the Wav2Lip model
@@ -69,10 +87,42 @@ def simulate_lip_sync(avatar_frame_path, audio_path, output_path):
         os.makedirs(frames_dir, exist_ok=True)
         
         # Load the avatar frame (or generate a placeholder)
+        avatar_frame = None
+        
         if os.path.exists(avatar_frame_path):
-            avatar_frame = cv2.imread(avatar_frame_path)
-        else:
-            # Create a placeholder frame if the avatar image doesn't exist
+            # Check if file is an SVG
+            if avatar_frame_path.lower().endswith('.svg'):
+                logger.debug(f"Avatar is SVG format, creating a colored placeholder")
+                # Create a placeholder with the avatar ID as text for SVG files
+                avatar_frame = np.ones((480, 640, 3), dtype=np.uint8) * 240  # Light gray background
+                
+                # Add a colored circle for the face
+                cv2.circle(
+                    avatar_frame,
+                    (320, 200),  # Center of the frame
+                    120,         # Radius
+                    (120, 180, 240),  # Light blue color
+                    -1           # Filled circle
+                )
+                
+                # Add a name from the avatar ID
+                avatar_name = os.path.basename(avatar_frame_path).split('_')[0].capitalize()
+                cv2.putText(
+                    avatar_frame,
+                    f"{avatar_name}",
+                    (250, 330),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    1.5,
+                    (60, 60, 60),
+                    2
+                )
+            else:
+                # Try to read the image
+                avatar_frame = cv2.imread(avatar_frame_path)
+        
+        # If we couldn't load the image, create a placeholder
+        if avatar_frame is None:
+            # Create a placeholder frame if the avatar image doesn't exist or couldn't be loaded
             avatar_frame = np.ones((480, 640, 3), dtype=np.uint8) * 255
             # Add text to the placeholder
             cv2.putText(
