@@ -180,7 +180,7 @@ function createAvatarElement(avatar) {
   }
   
   // Determine the image source
-  const imageSrc = avatar.preview || `/static/images/avatars/${avatar.id}_preview.svg`;
+  const imageSrc = avatar.preview_image || `/static/images/avatars/${avatar.id}_preview.svg`;
   
   element.innerHTML = `
     <div class="avatar-image">
