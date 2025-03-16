@@ -15,8 +15,15 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev_secret_key")
 
-# Initialize SocketIO with better compatibility for gunicorn
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
+# Configure SocketIO for gunicorn compatibility
+socketio = SocketIO(
+    app, 
+    cors_allowed_origins="*", 
+    async_mode='threading',
+    ping_timeout=60,
+    ping_interval=25,
+    engineio_logger=True  # Enable engine logging for debugging
+)
 
 # Routes
 @app.route('/')

@@ -16,18 +16,22 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function initializeSocket() {
   try {
-    // Connect to the Socket.IO server with explicit configuration for better gunicorn compatibility
+    console.log('Attempting to initialize Socket.IO connection...');
+    
+    // First try to connect with websocket only
     socket = io({
-      transports: ['websocket', 'polling'],
+      transports: ['polling'],  // Start with polling which is more reliable with Gunicorn
       reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000
+      reconnectionAttempts: 10,
+      reconnectionDelay: 1000,
+      timeout: 20000,  // Longer timeout
+      forceNew: true  // Force a new connection
     });
     
     // Set up event listeners for socket events
     setupSocketListeners();
     
-    console.log('Socket.IO initialized');
+    console.log('Socket.IO initialization attempt complete');
   } catch (error) {
     console.error('Failed to initialize Socket.IO:', error);
   }
