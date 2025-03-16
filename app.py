@@ -1,7 +1,8 @@
 import os
 import logging
+# Configure eventlet for WebSocket support
 import eventlet
-eventlet.monkey_patch()  # Patch the standard library for eventlet compatibility
+eventlet.monkey_patch()
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
 import json
