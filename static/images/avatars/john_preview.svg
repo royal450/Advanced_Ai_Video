@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="avatar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4776E6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#8E54E9" stop-opacity="0.2" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#avatar-gradient)" rx="10" ry="10" />
+  <g transform="translate(50, 30)">
+    <!-- Hair -->
+    <path d="M20,30 C20,20 30,10 50,10 C70,10 80,20 80,30 C80,30 80,35 80,40 C80,40 85,35 90,40 C90,30 85,15 80,10 C70,0 60,-5 50,-5 C40,-5 30,0 20,10 C15,15 10,30 10,40 C15,35 20,40 20,40 C20,35 20,30 20,30 Z" fill="#333333" />
+    
+    <!-- Face -->
+    <ellipse cx="50" cy="70" rx="40" ry="45" fill="#F5DEB3" />
+    
+    <!-- Eyes -->
+    <ellipse cx="35" cy="60" rx="8" ry="5" fill="#FFFFFF" />
+    <ellipse cx="35" cy="60" rx="4" ry="4" fill="#4682B4" />
+    <ellipse cx="35" cy="60" rx="2" ry="2" fill="#000000" />
+    
+    <ellipse cx="65" cy="60" rx="8" ry="5" fill="#FFFFFF" />
+    <ellipse cx="65" cy="60" rx="4" ry="4" fill="#4682B4" />
+    <ellipse cx="65" cy="60" rx="2" ry="2" fill="#000000" />
+    
+    <!-- Eyebrows -->
+    <path d="M27,48 Q35,45 43,48" fill="none" stroke="#333333" stroke-width="2" />
+    <path d="M57,48 Q65,45 73,48" fill="none" stroke="#333333" stroke-width="2" />
+    
+    <!-- Nose -->
+    <path d="M50,65 L45,80 L55,80" fill="none" stroke="#F5DEB3" stroke-width="2" />
+    
+    <!-- Mouth -->
+    <path d="M35,90 Q50,95 65,90" fill="none" stroke="#CD5C5C" stroke-width="2" />
+    
+    <!-- Facial Hair - Subtle beard/stubble -->
+    <path d="M30,85 Q50,95 70,85 Q65,100 50,105 Q35,100 30,85" fill="none" stroke="#555555" stroke-width="1" stroke-dasharray="1,1" />
+    
+    <!-- Neck -->
+    <rect x="40" y="110" width="20" height="15" fill="#F5DEB3" />
+    
+    <!-- Clothing - Business suit -->
+    <path d="M30,125 L40,115 L60,115 L70,125" fill="#2F4F4F" />
+    <path d="M30,125 L30,140 L70,140 L70,125" fill="#2F4F4F" />
+    <path d="M50,115 L50,135" fill="none" stroke="#FFFFFF" stroke-width="2" />
+    <rect x="47" y="125" width="6" height="5" fill="#8B0000" /> <!-- Tie -->
+  </g>
+  <text x="100" y="185" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">John Smith</text>
+</svg>

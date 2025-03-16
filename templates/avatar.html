@@ -1,0 +1,372 @@
+{% extends "layout.html" %}
+
+{% block title %}Create Avatar Video{% endblock %}
+
+{% block additional_head %}
+<style>
+  .avatar-page-container {
+    padding: 2rem 0;
+  }
+  
+  .section-title {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 3px;
+  }
+  
+  .avatar-container {
+    position: relative;
+    height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .avatar-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .avatar-container::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+  }
+  
+  .avatar-container::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+  }
+  
+  .input-section {
+    margin-top: 2rem;
+  }
+  
+  .preview-placeholder {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-tertiary);
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .voice-selector {
+    height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  .voice-selector::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .voice-selector::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 10px;
+  }
+  
+  .voice-selector::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+  }
+  
+  .text-input-container {
+    position: relative;
+  }
+  
+  #char-count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="avatar-page-container">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="display-5 fw-bold">Create Your <span class="text-gradient">AI Avatar</span> Video</h1>
+        <p class="lead">Choose an avatar, enter your text, and generate a professional talking video in minutes.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Avatar Selection -->
+      <div class="col-lg-8">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h3 class="section-title">Choose an Avatar</h3>
+            
+            <!-- Category Filters -->
+            <div class="mb-3">
+              <label class="form-label">Filter by Category</label>
+              <div id="category-filters" class="category-filter">
+                <!-- Will be populated by JavaScript -->
+                <div class="category-pill active" data-category="all">All</div>
+                <div class="category-pill" data-category="business">Business</div>
+                <div class="category-pill" data-category="casual">Casual</div>
+                <div class="category-pill" data-category="tech">Tech</div>
+              </div>
+            </div>
+            
+            <!-- Gender Filters -->
+            <div class="mb-3">
+              <label class="form-label">Filter by Gender</label>
+              <div id="gender-filters" class="category-filter">
+                <!-- Will be populated by JavaScript -->
+                <div class="category-pill active" data-gender="all">All</div>
+                <div class="category-pill" data-gender="male">Male</div>
+                <div class="category-pill" data-gender="female">Female</div>
+              </div>
+            </div>
+            
+            <!-- Avatar Grid -->
+            <div class="avatar-container">
+              <div id="avatar-grid" class="avatar-grid">
+                <!-- Will be populated by JavaScript -->
+                <div class="text-center py-5">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <p class="mt-3">Loading avatars...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Selected Avatar Info -->
+      <div class="col-lg-4">
+        <div id="selected-avatar-info">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Selected Avatar</h5>
+              <div class="text-center py-4">
+                <i class="fas fa-user-circle fa-5x text-muted mb-3"></i>
+                <p>No avatar selected</p>
+                <p class="small text-muted">Click on an avatar from the list to select it</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Voice Selection -->
+        <div class="card shadow-sm mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Select Voice</h5>
+            <div id="voice-selector" class="voice-selector mt-3">
+              <!-- Will be populated by JavaScript -->
+              <div class="text-center py-3">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-3">Loading voices...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Text Input -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="section-title">Enter Your Text</h3>
+            <form id="generate-form">
+              <div class="mb-3 text-input-container">
+                <label for="text-input" class="form-label">Text for the avatar to speak</label>
+                <textarea id="text-input" class="form-control" rows="5" placeholder="Enter your text here... The avatar will speak this text with natural intonation and expressions."></textarea>
+                <div id="char-count" class="small">0 characters</div>
+              </div>
+              
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <button type="button" id="preview-btn" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-eye me-1"></i> Preview
+                  </button>
+                </div>
+                <div>
+                  <button type="submit" id="generate-btn" class="btn btn-primary" disabled>
+                    <i class="fas fa-magic me-1"></i> Generate Video
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Preview Section -->
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div id="preview-container">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Preview</h5>
+              <span class="badge bg-secondary">Not Generated</span>
+            </div>
+            <div class="preview-placeholder py-5">
+              <i class="fas fa-eye fa-3x text-muted mb-3"></i>
+              <p>Preview will appear here</p>
+              <p class="small text-muted">Click the Preview button to see a quick sample</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Result Section -->
+      <div class="col-md-6">
+        <div id="video-result">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Final Video</h5>
+              <span class="badge bg-secondary">Not Generated</span>
+            </div>
+            <div class="preview-placeholder py-5">
+              <i class="fas fa-video fa-3x text-muted mb-3"></i>
+              <p>Your video will appear here</p>
+              <p class="small text-muted">Click the Generate Video button to create your avatar video</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sample Videos Section -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h2 class="h1 fw-bold">Sample <span class="text-gradient">Videos</span></h2>
+        <p class="lead">Check out these examples of our AI avatars in action</p>
+      </div>
+    </div>
+    
+    <div class="row g-4">
+      <!-- Sample Video 1 -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body p-0">
+            <div class="ratio ratio-16x9">
+              <div class="bg-dark d-flex align-items-center justify-content-center text-white">
+                <div class="text-center">
+                  <i class="fas fa-play-circle fa-3x mb-2"></i>
+                  <h5>Business Presentation</h5>
+                  <p class="small">Professional male avatar</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h5>Business Presentation</h5>
+              <p class="small text-muted">This sample shows a professional male avatar presenting business concepts with natural gestures and expressions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sample Video 2 -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body p-0">
+            <div class="ratio ratio-16x9">
+              <div class="bg-dark d-flex align-items-center justify-content-center text-white">
+                <div class="text-center">
+                  <i class="fas fa-play-circle fa-3x mb-2"></i>
+                  <h5>Product Explanation</h5>
+                  <p class="small">Female tech specialist</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h5>Product Explanation</h5>
+              <p class="small text-muted">Watch how our female tech specialist avatar explains complex product features with engaging visuals and clear articulation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sample Video 3 -->
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body p-0">
+            <div class="ratio ratio-16x9">
+              <div class="bg-dark d-flex align-items-center justify-content-center text-white">
+                <div class="text-center">
+                  <i class="fas fa-play-circle fa-3x mb-2"></i>
+                  <h5>Educational Content</h5>
+                  <p class="small">Casual teacher avatar</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-3">
+              <h5>Educational Content</h5>
+              <p class="small text-muted">This example demonstrates how our teacher avatar delivers educational content with friendly expressions and helpful gestures.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Help Section -->
+  <div class="container mt-5 mb-5">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="h4 mb-4">Tips for Creating Great Avatar Videos</h3>
+            
+            <div class="mb-3">
+              <h5><i class="fas fa-pencil-alt text-primary me-2"></i> Write Clear, Conversational Text</h5>
+              <p>Use natural language that sounds like someone speaking. Include pauses with commas and periods. Avoid complex technical terms unless necessary.</p>
+            </div>
+            
+            <div class="mb-3">
+              <h5><i class="fas fa-user text-primary me-2"></i> Choose the Right Avatar</h5>
+              <p>Select an avatar that matches your brand or message. Consider the gender, appearance, and style that will resonate with your audience.</p>
+            </div>
+            
+            <div class="mb-3">
+              <h5><i class="fas fa-microphone text-primary me-2"></i> Select an Appropriate Voice</h5>
+              <p>The voice should match the avatar and the content. Test different voices to find the perfect match for your message.</p>
+            </div>
+            
+            <div class="mb-3">
+              <h5><i class="fas fa-clock text-primary me-2"></i> Keep Videos Concise</h5>
+              <p>Aim for 30-90 seconds for optimal engagement. If you need longer content, consider breaking it into multiple videos.</p>
+            </div>
+            
+            <div>
+              <h5><i class="fas fa-magic text-primary me-2"></i> Include Emotional Cues</h5>
+              <p>Add emotional hints like [happy], [serious], or [excited] in your text to trigger appropriate expressions in your avatar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="{{ url_for('static', filename='js/avatar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/video-export.js') }}"></script>
+{% endblock %}

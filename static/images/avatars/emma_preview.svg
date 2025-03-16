@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="avatar-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4776E6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#8E54E9" stop-opacity="0.2" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#avatar-gradient)" rx="10" ry="10" />
+  <g transform="translate(50, 30)">
+    <!-- Hair -->
+    <path d="M50,10 C80,10 90,30 90,60 C90,75 85,85 80,90 C80,90 75,30 50,30 C25,30 20,90 20,90 C15,85 10,75 10,60 C10,30 20,10 50,10 Z" fill="#DAA520" />
+    
+    <!-- Face -->
+    <ellipse cx="50" cy="70" rx="40" ry="45" fill="#FFDAB9" />
+    
+    <!-- Eyes -->
+    <ellipse cx="35" cy="60" rx="8" ry="5" fill="#FFFFFF" />
+    <ellipse cx="35" cy="60" rx="4" ry="4" fill="#8B4513" />
+    <ellipse cx="35" cy="60" rx="2" ry="2" fill="#000000" />
+    
+    <ellipse cx="65" cy="60" rx="8" ry="5" fill="#FFFFFF" />
+    <ellipse cx="65" cy="60" rx="4" ry="4" fill="#8B4513" />
+    <ellipse cx="65" cy="60" rx="2" ry="2" fill="#000000" />
+    
+    <!-- Eyebrows -->
+    <path d="M27,50 Q35,45 43,50" fill="none" stroke="#A0522D" stroke-width="2" />
+    <path d="M57,50 Q65,45 73,50" fill="none" stroke="#A0522D" stroke-width="2" />
+    
+    <!-- Nose -->
+    <path d="M50,65 L45,75 L55,75" fill="none" stroke="#FFDAB9" stroke-width="2" />
+    
+    <!-- Mouth -->
+    <path d="M35,85 Q50,95 65,85" fill="none" stroke="#CD5C5C" stroke-width="3" />
+    
+    <!-- Neck -->
+    <rect x="40" y="110" width="20" height="15" fill="#FFDAB9" />
+    
+    <!-- Clothing suggestion -->
+    <path d="M20,125 L40,115 L60,115 L80,125" fill="none" stroke="#4776E6" stroke-width="2" />
+    <path d="M20,125 L20,140 L80,140 L80,125" fill="#4776E6" />
+  </g>
+  <text x="100" y="185" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">Emma Watson</text>
+</svg>

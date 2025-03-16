@@ -1,0 +1,801 @@
+{% extends "layout.html" %}
+
+{% block title %}AI-Driven Avatar Animation{% endblock %}
+
+{% block additional_head %}
+<style>
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+        padding: 100px 0;
+        background-color: var(--bg-primary);
+    }
+    
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-card {
+        border-radius: 16px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #4776E6, #8E54E9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .how-it-works-step {
+        position: relative;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .step-number {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #4776E6, #8E54E9);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    
+    .avatar-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 20px;
+    }
+    
+    .avatar-preview {
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    
+    .avatar-preview:hover {
+        transform: scale(1.05);
+    }
+    
+    .testimonial-card {
+        border-radius: 16px;
+        padding: 30px;
+        height: 100%;
+    }
+    
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .cta-section {
+        background: linear-gradient(45deg, #4776E6, #8E54E9);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .faq-item {
+        margin-bottom: 20px;
+    }
+    
+    .faq-question {
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .faq-answer {
+        padding: 15px;
+        border-radius: 0 0 8px 8px;
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-background">
+        <img src="{{ url_for('static', filename='images/wave-bg.svg') }}" alt="Wave Background" class="w-100 h-100">
+    </div>
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Transform Text Into<br><span class="text-gradient">AI Avatar Videos</span></h1>
+                <p class="lead mb-4">Create realistic talking avatar videos with natural voice and perfectly synchronized lip movements using our cutting-edge AI technology.</p>
+                <div class="d-flex gap-3">
+                    <a href="/avatar" class="btn btn-primary btn-lg">Create Your Video</a>
+                    <a href="#how-it-works" class="btn btn-outline-primary btn-lg">Learn How</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image-container text-center">
+                    <div class="video-preview rounded-4 shadow-lg overflow-hidden position-relative">
+                        <!-- Placeholder for video preview -->
+                        <div class="ratio ratio-16x9">
+                            <div class="d-flex align-items-center justify-content-center bg-dark p-5">
+                                <div class="text-center">
+                                    <i class="fas fa-user-tie fa-5x mb-3 text-primary"></i>
+                                    <h3 class="h5">AI Avatar Preview</h3>
+                                    <p class="small text-muted">Create your own talking avatar</p>
+                                    <a href="/avatar" class="btn btn-sm btn-primary mt-2">
+                                        <i class="fas fa-play me-2"></i>Try Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-absolute bottom-0 start-0 end-0 p-3 bg-gradient-dark">
+                            <div class="d-flex align-items-center">
+                                <div class="waveform me-2">
+                                    <span class="waveform-bar"></span>
+                                    <span class="waveform-bar"></span>
+                                    <span class="waveform-bar"></span>
+                                    <span class="waveform-bar"></span>
+                                </div>
+                                <span class="small text-white">AI-generated speech with natural intonation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 fw-bold">Powerful <span class="text-gradient">Features</span></h2>
+            <p class="lead">Our AI avatar platform offers everything you need to create professional videos</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Feature 1 -->
+            <div class="col-md-4">
+                <div class="feature-card card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="h4 mb-3">50+ Lifelike Avatars</h3>
+                        <p>Choose from our diverse collection of high-quality avatars with various styles, ages, and appearances.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="col-md-4">
+                <div class="feature-card card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-microphone-alt"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Natural Voice Synthesis</h3>
+                        <p>Generate human-like speech using Edge TTS with proper intonation, pacing, and emotion.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="col-md-4">
+                <div class="feature-card card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Perfect Lip Synchronization</h3>
+                        <p>Our Wav2Lip technology ensures your avatar's lip movements match the speech perfectly.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="col-md-4">
+                <div class="feature-card card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <h3 class="h4 mb-3">AI-Driven Expressions</h3>
+                        <p>Avatars display realistic facial expressions and emotions that match the content and tone.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="col-md-4">
+                <div class="feature-card card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Natural Hand Gestures</h3>
+                        <p>Dynamic hand movements and gestures that add life and emphasis to your avatar's speech.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="col-md-4">
+                <div class="feature-card card h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Video Export & Sharing</h3>
+                        <p>Download your finished videos in high quality or share them directly to social platforms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="py-5 bg-light-subtle">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 fw-bold">How It <span class="text-gradient">Works</span></h2>
+            <p class="lead">Create your AI avatar video in just a few simple steps</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <!-- Step 1 -->
+                <div class="how-it-works-step card shadow-sm">
+                    <div class="step-number">1</div>
+                    <div class="card-body">
+                        <h3 class="h4 mb-3">Choose Your Avatar</h3>
+                        <p>Browse through our collection of 50+ high-quality avatars and select one that fits your needs.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="how-it-works-step card shadow-sm">
+                    <div class="step-number">2</div>
+                    <div class="card-body">
+                        <h3 class="h4 mb-3">Enter Your Text</h3>
+                        <p>Type or paste the text you want your avatar to speak. Our system handles punctuation and pacing.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="how-it-works-step card shadow-sm">
+                    <div class="step-number">3</div>
+                    <div class="card-body">
+                        <h3 class="h4 mb-3">Select Voice & Options</h3>
+                        <p>Choose from various natural-sounding voices and customize expression settings.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="how-it-works-step card shadow-sm">
+                    <div class="step-number">4</div>
+                    <div class="card-body">
+                        <h3 class="h4 mb-3">Generate & Preview</h3>
+                        <p>Our AI system generates the speech, synchronizes lip movements, and adds natural expressions.</p>
+                    </div>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="how-it-works-step card shadow-sm">
+                    <div class="step-number">5</div>
+                    <div class="card-body">
+                        <h3 class="h4 mb-3">Download or Share</h3>
+                        <p>Once satisfied, download your video in high quality or share it directly to your platforms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/avatar" class="btn btn-primary btn-lg">Create Your Avatar Video Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Avatar Showcase Section -->
+<section id="avatar-showcase" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 fw-bold">Our <span class="text-gradient">Avatar</span> Collection</h2>
+            <p class="lead">Browse through some of our popular AI avatars</p>
+        </div>
+        
+        <div class="avatar-showcase">
+            <!-- Avatars will be dynamically loaded here -->
+            <!-- Placeholder for 12 sample avatars -->
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar1">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Emma</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar2">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-tie fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">John</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar3">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Sophia</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar4">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-tie fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Michael</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar5">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Alex</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar6">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-tie fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">David</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar7">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Maria</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar8">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-tie fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">James</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar9">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Zoe</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar10">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-tie fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Robert</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar11">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Emily</div>
+            </div>
+            
+            <div class="avatar-preview shadow-sm" data-avatar-id="avatar12">
+                <div class="ratio ratio-1x1 bg-dark-subtle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-user-tie fa-2x text-primary"></i>
+                </div>
+                <div class="p-2 small text-center">Daniel</div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/avatar" class="btn btn-outline-primary">View All Avatars</a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-5 bg-light-subtle">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="h1 fw-bold mb-4">About Our <span class="text-gradient">Technology</span></h2>
+                <p class="lead mb-4">We combine cutting-edge AI models to create the most realistic avatar animations.</p>
+                
+                <div class="mb-4">
+                    <h4>Edge TTS for Natural Speech</h4>
+                    <p>We use Microsoft's Edge TTS technology to generate natural-sounding speech with proper intonation, pacing, and emotion.</p>
+                </div>
+                
+                <div class="mb-4">
+                    <h4>Wav2Lip for Perfect Synchronization</h4>
+                    <p>Our implementation of Wav2Lip ensures that your avatar's lip movements are perfectly synchronized with the generated speech.</p>
+                </div>
+                
+                <div class="mb-4">
+                    <h4>AI-Driven Expressions</h4>
+                    <p>We've developed advanced models for generating realistic facial expressions and hand gestures that match the content and tone of the speech.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-image-container">
+                    <div class="tech-stack-image rounded-4 shadow-lg overflow-hidden">
+                        <div class="ratio ratio-4x3">
+                            <div class="bg-dark p-4 d-flex flex-column justify-content-center">
+                                <div class="text-center mb-4">
+                                    <h4 class="text-gradient">Our AI Technology Stack</h4>
+                                </div>
+                                <div class="tech-elements">
+                                    <div class="tech-element mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tech-icon bg-primary bg-opacity-20 p-3 rounded-3 me-3">
+                                                <i class="fas fa-microphone text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0">Edge TTS</h5>
+                                                <div class="small text-muted">Natural speech synthesis</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-element mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tech-icon bg-info bg-opacity-20 p-3 rounded-3 me-3">
+                                                <i class="fas fa-lips text-info">👄</i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0">Wav2Lip</h5>
+                                                <div class="small text-muted">Lip synchronization</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-element mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tech-icon bg-success bg-opacity-20 p-3 rounded-3 me-3">
+                                                <i class="fas fa-smile text-success"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0">Expression AI</h5>
+                                                <div class="small text-muted">Facial expression generation</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tech-element">
+                                        <div class="d-flex align-items-center">
+                                            <div class="tech-icon bg-warning bg-opacity-20 p-3 rounded-3 me-3">
+                                                <i class="fas fa-hand-point-up text-warning"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0">Gesture Neural Net</h5>
+                                                <div class="small text-muted">Hand gesture animation</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 fw-bold">What Our <span class="text-gradient">Users</span> Say</h2>
+            <p class="lead">Hear from people who have created amazing avatar videos</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Testimonial 1 -->
+            <div class="col-md-4">
+                <div class="testimonial-card card shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="testimonial-avatar-container me-3">
+                                <div class="ratio ratio-1x1 rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span class="h4 text-white m-0">S</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">Sarah Johnson</h5>
+                                <p class="small text-muted mb-0">Marketing Manager</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The AI avatars look incredibly realistic! I've been using this for our marketing videos and it has saved us thousands in production costs."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="col-md-4">
+                <div class="testimonial-card card shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="testimonial-avatar-container me-3">
+                                <div class="ratio ratio-1x1 rounded-circle bg-info d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span class="h4 text-white m-0">T</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">Thomas Chen</h5>
+                                <p class="small text-muted mb-0">Online Educator</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"I create educational content in multiple languages, and this tool has been a game-changer. The lip-sync is perfect and my students love the engaging avatars."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="col-md-4">
+                <div class="testimonial-card card shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="testimonial-avatar-container me-3">
+                                <div class="ratio ratio-1x1 rounded-circle bg-success d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span class="h4 text-white m-0">M</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">Maria Rodriguez</h5>
+                                <p class="small text-muted mb-0">Content Creator</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The natural hand gestures and facial expressions make such a difference. My viewers actually thought I hired actors until I revealed it was AI!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call-to-Action Section -->
+<section id="cta" class="cta-section text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="display-5 fw-bold mb-4">Ready to Create Your AI Avatar Video?</h2>
+                <p class="lead mb-4">Join thousands of content creators, marketers, and educators who are using our platform to create engaging videos.</p>
+                <a href="/avatar" class="btn btn-light btn-lg">Get Started Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-5 bg-light-subtle">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="h1 fw-bold">Frequently Asked <span class="text-gradient">Questions</span></h2>
+            <p class="lead">Find answers to common questions about our AI avatar platform</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question bg-card" onclick="toggleFAQ(this)">
+                        <h4 class="h5 mb-0">How realistic are the AI avatars?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bg-card bg-opacity-50">
+                        <p class="mb-0">Our AI avatars are designed to look highly realistic with natural facial expressions, lip movements, and gestures. While they are computer-generated, they provide a professional and engaging appearance that is suitable for various content types.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question bg-card" onclick="toggleFAQ(this)">
+                        <h4 class="h5 mb-0">What languages are supported for speech?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bg-card bg-opacity-50">
+                        <p class="mb-0">Our platform currently supports over 20 languages including English, Spanish, French, German, Chinese, Japanese, Korean, Italian, and more. We're constantly adding new languages and improving existing ones.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question bg-card" onclick="toggleFAQ(this)">
+                        <h4 class="h5 mb-0">How long does it take to generate a video?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bg-card bg-opacity-50">
+                        <p class="mb-0">Video generation typically takes between 30 seconds to 2 minutes, depending on the length of your text and the complexity of the animations. Our system processes videos in real-time and provides progress updates throughout the generation process.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question bg-card" onclick="toggleFAQ(this)">
+                        <h4 class="h5 mb-0">What video formats and resolutions are available?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bg-card bg-opacity-50">
+                        <p class="mb-0">We provide videos in MP4 format with H.264 encoding, which is compatible with most platforms and devices. Our videos are available in 720p and 1080p resolutions, ensuring high quality while maintaining reasonable file sizes.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question bg-card" onclick="toggleFAQ(this)">
+                        <h4 class="h5 mb-0">Can I customize the background of my avatar video?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bg-card bg-opacity-50">
+                        <p class="mb-0">Yes, you can select from a variety of pre-designed backgrounds or upload your own image to use as a background. We also offer a green screen option that allows you to easily integrate your avatar into other videos during post-production.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <div class="faq-question bg-card" onclick="toggleFAQ(this)">
+                        <h4 class="h5 mb-0">Do I own the videos created on your platform?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer bg-card bg-opacity-50">
+                        <p class="mb-0">Yes, you retain full ownership of all videos created using our platform. You can use them for personal or commercial purposes in accordance with our terms of service. However, the avatar models themselves remain the property of our platform.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="h1 fw-bold mb-4">Have a <span class="text-gradient">Question</span>?</h2>
+                <p class="lead mb-5">Contact our team for support or to learn more about our platform</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <form id="contact-form" class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                    <div class="invalid-feedback">
+                                        Please enter your name.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="subject" required>
+                                    <div class="invalid-feedback">
+                                        Please enter a subject.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Your Message</label>
+                                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                                    <div class="invalid-feedback">
+                                        Please enter your message.
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block additional_scripts %}
+<script>
+    // Toggle FAQ answers
+    function toggleFAQ(element) {
+        const answer = element.nextElementSibling;
+        const icon = element.querySelector('i');
+        
+        if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+            icon.className = 'fas fa-chevron-down';
+        } else {
+            answer.style.display = 'block';
+            icon.className = 'fas fa-chevron-up';
+        }
+    }
+    
+    // Form validation
+    (() => {
+        'use strict';
+        
+        const forms = document.querySelectorAll('.needs-validation');
+        
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    // Form is valid, handle submission (e.g., AJAX)
+                    event.preventDefault();
+                    alert('Thank you for your message! We will respond shortly.');
+                    form.reset();
+                }
+                
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+    
+    // Initialize avatar showcase with placeholder data
+    document.addEventListener('DOMContentLoaded', function() {
+        // In a real application, you would fetch avatar data from the server
+        // For demo purposes, we'll use the placeholders already in the HTML
+        
+        // Add click event to avatars to redirect to the avatar creation page
+        const avatarPreviews = document.querySelectorAll('.avatar-preview');
+        avatarPreviews.forEach(preview => {
+            preview.addEventListener('click', function() {
+                const avatarId = this.getAttribute('data-avatar-id');
+                window.location.href = `/avatar?selected=${avatarId}`;
+            });
+        });
+    });
+</script>
+{% endblock %}

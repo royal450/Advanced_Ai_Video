@@ -1,0 +1,203 @@
+/* Dark Mode Styles for AI Avatar Animation */
+
+body.dark-mode {
+  /* Override the light theme variables */
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-tertiary: #2D2D2D;
+  --text-primary: #E0E0E0;
+  --text-secondary: #B0B0B0;
+  --text-tertiary: #707070;
+  --border-color: #3D3D3D;
+  
+  /* Card and UI Elements */
+  --card-bg: #1E1E1E;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --input-bg: #2D2D2D;
+  --input-border: #3D3D3D;
+  
+  /* Apply dark mode to HTML and body */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Navbar Dark Mode */
+body.dark-mode .navbar:not(.navbar-dark) {
+  background-color: var(--bg-primary);
+}
+
+body.dark-mode .navbar-dark {
+  background-color: transparent;
+}
+
+body.dark-mode .navbar-nav .nav-link {
+  color: var(--text-secondary);
+}
+
+body.dark-mode .navbar-nav .nav-link:hover,
+body.dark-mode .navbar-nav .nav-link:focus {
+  color: var(--primary);
+}
+
+/* Footer Dark Mode */
+body.dark-mode .footer {
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+body.dark-mode .footer h5 {
+  color: var(--text-primary);
+}
+
+body.dark-mode .footer a {
+  color: var(--text-secondary);
+}
+
+body.dark-mode .social-icons a {
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+/* Forms Dark Mode */
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--text-primary);
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(71, 118, 230, 0.15);
+}
+
+body.dark-mode .form-control::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* Cards Dark Mode */
+body.dark-mode .card {
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+
+/* Avatar Items Dark Mode */
+body.dark-mode .avatar-item {
+  box-shadow: var(--card-shadow);
+}
+
+body.dark-mode .avatar-info {
+  background-color: var(--card-bg);
+}
+
+/* Voice Options Dark Mode */
+body.dark-mode .voice-option {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .voice-option:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Preview Dark Mode */
+body.dark-mode .preview-container {
+  background-color: var(--card-bg);
+}
+
+body.dark-mode .preview-placeholder {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .preview-controls {
+  border-top-color: var(--border-color);
+}
+
+/* FAQ Dark Mode */
+body.dark-mode .faq-question {
+  background-color: var(--card-bg);
+}
+
+body.dark-mode .faq-answer {
+  background-color: var(--bg-tertiary);
+}
+
+/* Loading Overlay Dark Mode */
+body.dark-mode #loading-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .loading-spinner {
+  background-color: var(--card-bg);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  padding: 0;
+  transition: var(--transition-fast);
+}
+
+body.dark-mode #theme-toggle .fa-moon {
+  display: none;
+}
+
+body.dark-mode #theme-toggle .fa-sun {
+  display: inline-block;
+}
+
+body:not(.dark-mode) #theme-toggle .fa-moon {
+  display: inline-block;
+}
+
+body:not(.dark-mode) #theme-toggle .fa-sun {
+  display: none;
+}
+
+/* Special Dark Mode Overrides */
+body.dark-mode .bg-light-subtle {
+  background-color: var(--bg-secondary) !important;
+}
+
+body.dark-mode .border {
+  border-color: var(--border-color) !important;
+}
+
+body.dark-mode .text-muted {
+  color: var(--text-secondary) !important;
+}
+
+body.dark-mode .btn-outline-light {
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
+}
+
+body.dark-mode .btn-outline-light:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+/* Export Options Dark Mode */
+body.dark-mode .export-option {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .export-option:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Category Pills Dark Mode */
+body.dark-mode .category-pill {
+  background-color: var(--bg-tertiary);
+}
+
+body.dark-mode .category-pill:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--primary);
+}
