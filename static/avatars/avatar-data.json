@@ -2,425 +2,79 @@
   "avatars": [
     {
       "id": "avatar1",
-      "name": "Emma Watson",
+      "name": "Emma",
       "gender": "female",
-      "category": "celebrity",
-      "preview": "/static/images/avatars/emma_preview.svg",
-      "description": "Professional female avatar with a friendly appearance"
+      "category": "professional",
+      "description": "Professional female avatar with a friendly appearance, suitable for business presentations.",
+      "preview_image": "/static/images/avatars/emma_preview.svg",
+      "video_frame": "/static/avatars/avatar1.jpg",
+      "recommended_voices": ["en-US-AriaNeural", "en-GB-SoniaNeural", "en-AU-NatashaNeural"]
     },
     {
       "id": "avatar2",
-      "name": "John Smith",
+      "name": "John",
       "gender": "male",
-      "category": "business",
-      "preview": "/static/images/avatars/john_preview.svg",
-      "description": "Business professional male avatar in formal attire"
-    },
-    {
-      "id": "avatar3",
-      "name": "Sophia Chen",
-      "gender": "female",
-      "category": "casual",
-      "preview": "/static/images/avatars/sophia_preview.svg",
-      "description": "Casual female avatar with a modern style"
-    },
-    {
-      "id": "avatar4",
-      "name": "Michael Johnson",
-      "gender": "male",
-      "category": "casual",
-      "preview": "/static/images/avatars/michael_preview.svg",
-      "description": "Casual male avatar with a friendly smile"
-    },
-    {
-      "id": "avatar5",
-      "name": "Alex Morgan",
-      "gender": "female",
-      "category": "business",
-      "preview": "/static/images/avatars/alex_preview.svg",
-      "description": "Professional female executive in business attire"
-    },
-    {
-      "id": "avatar6",
-      "name": "David Lee",
-      "gender": "male",
-      "category": "business",
-      "preview": "/static/images/avatars/david_preview.svg",
-      "description": "Business consultant with glasses and suit"
-    },
-    {
-      "id": "avatar7",
-      "name": "Maria Rodriguez",
-      "gender": "female",
-      "category": "casual",
-      "preview": "/static/images/avatars/maria_preview.svg",
-      "description": "Casual teacher avatar with a warm personality"
-    },
-    {
-      "id": "avatar8",
-      "name": "James Wilson",
-      "gender": "male",
-      "category": "tech",
-      "preview": "/static/images/avatars/james_preview.svg",
-      "description": "Tech professional with casual modern style"
-    },
-    {
-      "id": "avatar9",
-      "name": "Zoe Williams",
-      "gender": "female",
-      "category": "tech",
-      "preview": "/static/images/avatars/zoe_preview.svg",
-      "description": "Technology specialist with a professional appearance"
-    },
-    {
-      "id": "avatar10",
-      "name": "Robert Taylor",
-      "gender": "male",
-      "category": "business",
-      "preview": "/static/images/avatars/robert_preview.svg",
-      "description": "Senior business executive in formal suit"
-    },
-    {
-      "id": "avatar11",
-      "name": "Emily Davis",
-      "gender": "female",
-      "category": "healthcare",
-      "preview": "/static/images/avatars/emily_preview.svg",
-      "description": "Healthcare professional in medical attire"
-    },
-    {
-      "id": "avatar12",
-      "name": "Daniel Martinez",
-      "gender": "male",
-      "category": "healthcare",
-      "preview": "/static/images/avatars/daniel_preview.svg",
-      "description": "Medical professional with stethoscope"
-    },
-    {
-      "id": "avatar13",
-      "name": "Olivia Brown",
-      "gender": "female",
-      "category": "education",
-      "preview": "/static/images/avatars/olivia_preview.svg",
-      "description": "Education professional with glasses"
-    },
-    {
-      "id": "avatar14",
-      "name": "William Johnson",
-      "gender": "male",
-      "category": "education",
-      "preview": "/static/images/avatars/william_preview.svg",
-      "description": "Professor with formal academic appearance"
-    },
-    {
-      "id": "avatar15",
-      "name": "Ava Adams",
-      "gender": "female",
-      "category": "creative",
-      "preview": "/static/images/avatars/ava_preview.svg",
-      "description": "Creative professional with artistic style"
-    },
-    {
-      "id": "avatar16",
-      "name": "Liam Miller",
-      "gender": "male",
-      "category": "creative",
-      "preview": "/static/images/avatars/liam_preview.svg",
-      "description": "Design professional with modern appearance"
-    },
-    {
-      "id": "avatar17",
-      "name": "Isabella Garcia",
-      "gender": "female",
-      "category": "celebrity",
-      "preview": "/static/images/avatars/isabella_preview.svg",
-      "description": "Celebrity avatar with glamorous style"
-    },
-    {
-      "id": "avatar18",
-      "name": "Noah Wilson",
-      "gender": "male",
-      "category": "celebrity",
-      "preview": "/static/images/avatars/noah_preview.svg",
-      "description": "Celebrity male avatar with charismatic appearance"
-    },
-    {
-      "id": "avatar19",
-      "name": "Mia Thompson",
-      "gender": "female",
-      "category": "sports",
-      "preview": "/static/images/avatars/mia_preview.svg",
-      "description": "Sports professional in athletic wear"
-    },
-    {
-      "id": "avatar20",
-      "name": "Ethan Clark",
-      "gender": "male",
-      "category": "sports",
-      "preview": "/static/images/avatars/ethan_preview.svg",
-      "description": "Athletic coach with sporty appearance"
-    },
-    {
-      "id": "avatar21",
-      "name": "Charlotte Walker",
-      "gender": "female",
-      "category": "tech",
-      "preview": "/static/images/avatars/charlotte_preview.svg",
-      "description": "Technology executive with professional style"
-    },
-    {
-      "id": "avatar22",
-      "name": "Benjamin Hall",
-      "gender": "male",
-      "category": "tech",
-      "preview": "/static/images/avatars/benjamin_preview.svg",
-      "description": "Software developer with casual tech appearance"
-    },
-    {
-      "id": "avatar23",
-      "name": "Amelia Young",
-      "gender": "female",
-      "category": "finance",
-      "preview": "/static/images/avatars/amelia_preview.svg",
-      "description": "Finance professional in business suit"
-    },
-    {
-      "id": "avatar24",
-      "name": "Lucas King",
-      "gender": "male",
-      "category": "finance",
-      "preview": "/static/images/avatars/lucas_preview.svg",
-      "description": "Financial advisor with formal business attire"
-    },
-    {
-      "id": "avatar25",
-      "name": "Harper Wright",
-      "gender": "female",
-      "category": "casual",
-      "preview": "/static/images/avatars/harper_preview.svg",
-      "description": "Casual lifestyle coach with friendly demeanor"
-    },
-    {
-      "id": "avatar26",
-      "name": "Mason Scott",
-      "gender": "male",
-      "category": "casual",
-      "preview": "/static/images/avatars/mason_preview.svg",
-      "description": "Casual motivational speaker with engaging presence"
-    },
-    {
-      "id": "avatar27",
-      "name": "Evelyn Green",
-      "gender": "female",
-      "category": "business",
-      "preview": "/static/images/avatars/evelyn_preview.svg",
-      "description": "Marketing executive with professional appearance"
-    },
-    {
-      "id": "avatar28",
-      "name": "Logan Baker",
-      "gender": "male",
-      "category": "business",
-      "preview": "/static/images/avatars/logan_preview.svg",
-      "description": "Business consultant with modern professional style"
-    },
-    {
-      "id": "avatar29",
-      "name": "Abigail Adams",
-      "gender": "female",
-      "category": "education",
-      "preview": "/static/images/avatars/abigail_preview.svg",
-      "description": "University professor with academic appearance"
-    },
-    {
-      "id": "avatar30",
-      "name": "Jackson Hill",
-      "gender": "male",
-      "category": "education",
-      "preview": "/static/images/avatars/jackson_preview.svg",
-      "description": "Education specialist with professional demeanor"
-    },
-    {
-      "id": "avatar31",
-      "name": "Elizabeth Carter",
-      "gender": "female",
-      "category": "healthcare",
-      "preview": "/static/images/avatars/elizabeth_preview.svg",
-      "description": "Healthcare administrator in professional attire"
-    },
-    {
-      "id": "avatar32",
-      "name": "Aiden Morris",
-      "gender": "male",
-      "category": "healthcare",
-      "preview": "/static/images/avatars/aiden_preview.svg",
-      "description": "Medical researcher with lab coat"
-    },
-    {
-      "id": "avatar33",
-      "name": "Sofia Parker",
-      "gender": "female",
-      "category": "tech",
-      "preview": "/static/images/avatars/sofia_preview.svg",
-      "description": "Data scientist with casual tech style"
-    },
-    {
-      "id": "avatar34",
-      "name": "Carter Nelson",
-      "gender": "male",
-      "category": "tech",
-      "preview": "/static/images/avatars/carter_preview.svg",
-      "description": "Tech entrepreneur with modern appearance"
-    },
-    {
-      "id": "avatar35",
-      "name": "Avery Rivera",
-      "gender": "female",
-      "category": "creative",
-      "preview": "/static/images/avatars/avery_preview.svg",
-      "description": "Creative director with artistic style"
-    },
-    {
-      "id": "avatar36",
-      "name": "Wyatt Cooper",
-      "gender": "male",
-      "category": "creative",
-      "preview": "/static/images/avatars/wyatt_preview.svg",
-      "description": "Graphic designer with creative appearance"
-    },
-    {
-      "id": "avatar37",
-      "name": "Ella Reed",
-      "gender": "female",
-      "category": "casual",
-      "preview": "/static/images/avatars/ella_preview.svg",
-      "description": "Casual content creator with friendly style"
-    },
-    {
-      "id": "avatar38",
-      "name": "Owen Richardson",
-      "gender": "male",
-      "category": "casual",
-      "preview": "/static/images/avatars/owen_preview.svg",
-      "description": "Lifestyle vlogger with casual modern appearance"
-    },
-    {
-      "id": "avatar39",
-      "name": "Scarlett Cox",
-      "gender": "female",
-      "category": "business",
-      "preview": "/static/images/avatars/scarlett_preview.svg",
-      "description": "HR professional with business casual attire"
-    },
-    {
-      "id": "avatar40",
-      "name": "Gabriel Peterson",
-      "gender": "male",
-      "category": "business",
-      "preview": "/static/images/avatars/gabriel_preview.svg",
-      "description": "Business analyst with professional appearance"
-    },
-    {
-      "id": "avatar41",
-      "name": "Victoria Ward",
-      "gender": "female",
-      "category": "finance",
-      "preview": "/static/images/avatars/victoria_preview.svg",
-      "description": "Investment advisor with formal business style"
-    },
-    {
-      "id": "avatar42",
-      "name": "Leo Watson",
-      "gender": "male",
-      "category": "finance",
-      "preview": "/static/images/avatars/leo_preview.svg",
-      "description": "Financial planner with professional demeanor"
-    },
-    {
-      "id": "avatar43",
-      "name": "Madison Brooks",
-      "gender": "female",
-      "category": "creative",
-      "preview": "/static/images/avatars/madison_preview.svg",
-      "description": "Fashion designer with stylish appearance"
-    },
-    {
-      "id": "avatar44",
-      "name": "Lincoln Price",
-      "gender": "male",
-      "category": "creative",
-      "preview": "/static/images/avatars/lincoln_preview.svg",
-      "description": "Architectural designer with professional style"
-    },
-    {
-      "id": "avatar45",
-      "name": "Chloe Bennett",
-      "gender": "female",
-      "category": "education",
-      "preview": "/static/images/avatars/chloe_preview.svg",
-      "description": "Educational content creator with friendly demeanor"
-    },
-    {
-      "id": "avatar46",
-      "name": "Elijah Wood",
-      "gender": "male",
-      "category": "education",
-      "preview": "/static/images/avatars/elijah_preview.svg",
-      "description": "Educational technology specialist with professional appearance"
-    },
-    {
-      "id": "avatar47",
-      "name": "Lily Ross",
-      "gender": "female",
-      "category": "healthcare",
-      "preview": "/static/images/avatars/lily_preview.svg",
-      "description": "Wellness coach with healthy appearance"
-    },
-    {
-      "id": "avatar48",
-      "name": "Julian Gray",
-      "gender": "male",
-      "category": "healthcare",
-      "preview": "/static/images/avatars/julian_preview.svg",
-      "description": "Nutritionist with professional healthcare style"
-    },
-    {
-      "id": "avatar49",
-      "name": "Nora Sanders",
-      "gender": "female",
-      "category": "tech",
-      "preview": "/static/images/avatars/nora_preview.svg",
-      "description": "Cybersecurity expert with professional tech appearance"
-    },
-    {
-      "id": "avatar50",
-      "name": "Jaxon Barnes",
-      "gender": "male",
-      "category": "tech",
-      "preview": "/static/images/avatars/jaxon_preview.svg",
-      "description": "AI researcher with modern tech style"
+      "category": "professional",
+      "description": "Professional male avatar with a confident look, ideal for corporate videos.",
+      "preview_image": "/static/images/avatars/john_preview.svg",
+      "video_frame": "/static/avatars/avatar2.jpg",
+      "recommended_voices": ["en-US-GuyNeural", "en-GB-RyanNeural", "en-AU-DarrenNeural"]
     }
   ],
   "voices": [
-    {"id": "en-US-AriaNeural", "name": "Aria (US)", "gender": "female", "language": "English (US)"},
-    {"id": "en-US-GuyNeural", "name": "Guy (US)", "gender": "male", "language": "English (US)"},
-    {"id": "en-GB-SoniaNeural", "name": "Sonia (UK)", "gender": "female", "language": "English (UK)"},
-    {"id": "en-GB-RyanNeural", "name": "Ryan (UK)", "gender": "male", "language": "English (UK)"},
-    {"id": "en-AU-NatashaNeural", "name": "Natasha (AU)", "gender": "female", "language": "English (Australia)"},
-    {"id": "en-AU-WilliamNeural", "name": "William (AU)", "gender": "male", "language": "English (Australia)"},
-    {"id": "fr-FR-DeniseNeural", "name": "Denise (FR)", "gender": "female", "language": "French"},
-    {"id": "fr-FR-HenriNeural", "name": "Henri (FR)", "gender": "male", "language": "French"},
-    {"id": "de-DE-KatjaNeural", "name": "Katja (DE)", "gender": "female", "language": "German"},
-    {"id": "de-DE-ConradNeural", "name": "Conrad (DE)", "gender": "male", "language": "German"},
-    {"id": "es-ES-ElviraNeural", "name": "Elvira (ES)", "gender": "female", "language": "Spanish"},
-    {"id": "es-ES-AlvaroNeural", "name": "Alvaro (ES)", "gender": "male", "language": "Spanish"},
-    {"id": "it-IT-ElsaNeural", "name": "Elsa (IT)", "gender": "female", "language": "Italian"},
-    {"id": "it-IT-DiegoNeural", "name": "Diego (IT)", "gender": "male", "language": "Italian"},
-    {"id": "ja-JP-NanamiNeural", "name": "Nanami (JP)", "gender": "female", "language": "Japanese"},
-    {"id": "ja-JP-KeitaNeural", "name": "Keita (JP)", "gender": "male", "language": "Japanese"},
-    {"id": "zh-CN-XiaoxiaoNeural", "name": "Xiaoxiao (CN)", "gender": "female", "language": "Chinese (Mandarin)"},
-    {"id": "zh-CN-YunyangNeural", "name": "Yunyang (CN)", "gender": "male", "language": "Chinese (Mandarin)"},
-    {"id": "ko-KR-SunHiNeural", "name": "SunHi (KR)", "gender": "female", "language": "Korean"},
-    {"id": "ko-KR-InJoonNeural", "name": "InJoon (KR)", "gender": "male", "language": "Korean"}
+    {
+      "id": "en-US-AriaNeural",
+      "name": "Aria (US)",
+      "gender": "female",
+      "locale": "en-US",
+      "description": "Clear and articulate American English female voice"
+    },
+    {
+      "id": "en-US-GuyNeural",
+      "name": "Guy (US)",
+      "gender": "male",
+      "locale": "en-US",
+      "description": "Professional and confident American English male voice"
+    },
+    {
+      "id": "en-GB-SoniaNeural",
+      "name": "Sonia (UK)",
+      "gender": "female",
+      "locale": "en-GB",
+      "description": "British English female voice with a warm tone"
+    },
+    {
+      "id": "en-GB-RyanNeural",
+      "name": "Ryan (UK)",
+      "gender": "male",
+      "locale": "en-GB",
+      "description": "British English male voice with a professional tone"
+    },
+    {
+      "id": "en-AU-NatashaNeural",
+      "name": "Natasha (AU)",
+      "gender": "female",
+      "locale": "en-AU",
+      "description": "Australian English female voice with a friendly tone"
+    },
+    {
+      "id": "en-AU-DarrenNeural",
+      "name": "Darren (AU)",
+      "gender": "male",
+      "locale": "en-AU",
+      "description": "Australian English male voice with a warm tone"
+    }
+  ],
+  "categories": [
+    {
+      "id": "professional",
+      "name": "Professional",
+      "description": "Suitable for business presentations, educational content, and corporate videos"
+    },
+    {
+      "id": "casual",
+      "name": "Casual",
+      "description": "Perfect for social media, vlogs, and informal content"
+    }
   ]
 }
