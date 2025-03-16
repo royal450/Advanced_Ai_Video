@@ -1,5 +1,7 @@
 import os
 import logging
+import eventlet
+eventlet.monkey_patch()  # Patch the standard library for eventlet compatibility
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
 import json
@@ -16,7 +18,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev_secret_key")
 
 # Initialize SocketIO
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 # Routes
 @app.route('/')
@@ -112,34 +114,52 @@ def handle_preview_request(data):
     try:
         text = data.get('text', '')
         avatar_id = data.get('avatar_id', '')
+        voice = data.get('voice', 'en-US-AriaNeural')
         
-        # Process a quick preview (simplified version)
-        # In a real application, this would generate a simplified preview
+        if not text or not avatar_id:
+            emit('preview_update', {
+                'status': 'error',
+                'message': 'Text and avatar ID are required'
+            })
+            return
+        
+        # Start processing the preview
         emit('preview_update', {
             'status': 'in_progress',
-            'message': 'Generating preview...'
+            'message': 'Generating speech...'
         })
         
-        # Simulate processing time
-        import time
-        time.sleep(1)
+        # 1. Generate speech (use shorter version of the text for preview)
+        preview_text = text[:100] + ('...' if len(text) > 100 else '')
+        audio_path = generate_speech(preview_text, voice)
         
+        emit('preview_update', {
+            'status': 'in_progress',
+            'message': 'Creating preview animation...',
+            'progress': 50
+        })
+        
+        # 2. Generate a simplified lip sync for preview
+        # This could be a shorter or lower-quality version for faster preview
+        lip_sync_path = generate_lip_sync(audio_path, avatar_id)
+        
+        # 3. Send the completed preview update
         emit('preview_update', {
             'status': 'completed',
             'message': 'Preview ready',
             'preview_data': {
                 'avatar_id': avatar_id,
-                'text': text,
-                'preview_url': f'/static/previews/{avatar_id}_preview.mp4'  # Placeholder
+                'text': preview_text,
+                'preview_url': lip_sync_path
             }
         })
+        
     except Exception as e:
         logger.error(f"Preview generation error: {e}")
         emit('preview_update', {
             'status': 'error',
             'message': f'Error generating preview: {str(e)}'
-   
         })
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True, use_reloader=True, log_output=True)
